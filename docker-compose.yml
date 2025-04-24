@@ -1,0 +1,29 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3001
+      - HOST=0.0.0.0
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    network_mode: host
+    # stdin_open: true
+    # tty: true
+
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongo_container
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo_data:/data/db
+# volumes:
+#   mongo_data:
+#     name: mongo-data
+#     driver: local
+# frontend-modules:
+#   name: frontend-modules
+# driver: local

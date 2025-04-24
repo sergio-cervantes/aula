@@ -1,0 +1,16 @@
+## POR EL MOMENTO ESTÁ EJECUTÁNDOSE
+## EN MODO DE DESARROLLO
+
+FROM node:alpine3.20
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+ENV PORT=3001
+EXPOSE 3001
+CMD [ "npm", "run", "dev" ]
+
+# FROM nginx:alpine
+# COPY --from=0 /app/build /usr/share/nginx/html
+# EXPOSE 80
+# CMD ["nginx", "-g", "daemon off;"]
