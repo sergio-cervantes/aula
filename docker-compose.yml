@@ -2,50 +2,38 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    environment:
-      - PORT=3001
-      - HOST=0.0.0.0
+      dockerfile: Containerfile
+    restart: always
     ports:
-      - "3001:3001"
+      - "5173:5173"
     volumes:
       - ./frontend:/app
       - frontend-modules:/app/node_modules
-    networks:
-      - aula-network
-    # stdin_open: true
-    # tty: true
+    depends_on:
+      - backend
 
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Containerfile
+    restart: always
     environment:
       - PORT=5000
       - HOST=0.0.0.0
-    ports:
-      - "5000:5000"
+    ports: []
     volumes:
       - ./backend:/app
       - backend-modules:/app/node_modules
-    networks:
-      - aula-network
     depends_on:
       - mongo
 
   mongo:
     image: mongo:latest
-    ports:
-      - "27017:27017"
+    restart: always
+    ports: []
     volumes:
       - mongo-data:/data/db
       - mongo-config:/data/configdb
-    networks:
-      - aula-network
-
-networks:
-  aula-network:
-    driver: bridge
 
 volumes:
   mongo-data:
