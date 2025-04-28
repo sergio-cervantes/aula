@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Insert.scss"; // Import CSS file for styling
+import "./Insert.scss";
 
 function Insert() {
   const [name, setName] = useState("");
 
-  // async function handleSubmit(e)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/users", { name });
-      alert("¡Nombre guardado en MongoDB!");
+      const response = await axios.post("/api/users", {
+        name,
+      });
+      alert(`¡Nombre guardado en MongoDB: ${response}!`);
       setName("");
     } catch (error) {
-      console.error("Error:", error);
+      alert(error);
+      //console.error("Error:", error);
     }
   };
 
