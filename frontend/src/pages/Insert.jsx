@@ -11,11 +11,10 @@ function Insert() {
       const response = await axios.post("/api/users", {
         name,
       });
-      alert(`¡Nombre guardado en MongoDB: ${response}!`);
+      alert(`¡Nombre guardado en MongoDB: ${response.statusText}!`);
       setName("");
     } catch (error) {
       alert(error);
-      //console.error("Error:", error);
     }
   };
 
