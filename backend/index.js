@@ -16,9 +16,6 @@ mongoose
   })
   .then(() => {
     console.log("Conectado a MongoDB");
-    app.listen(PORT, () => {
-      console.log(`Express escuchando en http://localhost:${PORT}`);
-    });
   })
   .catch((err) => {
     console.error("Error conectando a MongoDB:", err);
@@ -27,11 +24,21 @@ mongoose
 
 app.get("/health", (req, res) => res.send("OK"));
 
-app.post("/api/users", (req, res) => {
+app.post("/api/users", async (req, res) => {
   console.log("/api/users");
   const { name } = req.body;
   console.log(`Nombre recibido: ${name}`);
-  res.json({ message: `¡Nombre ${name} recibido correctamente!` });
+  try {
+    const newUser = new User({ name });
+    const savedUser = await newUser.save();
+    res.status(201).json({
+      message: `¡Nombre ${savedUser.name} guardado correctamente!`,
+      id: savedUser._id,
+    });
+  } catch (error) {
+    console.error("Error guardando el nombre:", error);
+    res.status(500).json({ message: "Error guardando el nombre" });
+  }
 });
 
 // Start server

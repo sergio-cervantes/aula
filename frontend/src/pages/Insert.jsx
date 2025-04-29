@@ -11,7 +11,7 @@ function Insert() {
       const response = await axios.post("/api/users", {
         name,
       });
-      alert(`¡Nombre guardado en MongoDB: ${response.statusText}!`);
+      console.log(`¡Nombre guardado en MongoDB: ${response.statusText}!`);
       setName("");
     } catch (error) {
       alert(error);
