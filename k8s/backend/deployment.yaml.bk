@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      # initContainers:
+        # - name: check-mongo
+          # image: curlimages/curl:latest
+          # command:
+            # [
+              # "sh",
+              # "-c",
+              # "until curl -s mongo:27017; do echo waiting for mongo; sleep 2; done;",
+            # ]
+      containers:
+        - name: backend
+          image: ghcr.io/sergio-cervantes/aula/backend:0.1
+          # ports:
+            # - containerPort: 5000
+          # env:
+            # - name: PORT
+              # value: "5000"
+            # - name: HOST
+              # value: "0.0.0.0"
+          # volumeMounts:
+            # - name: backend-modules
+              # mountPath: /app/node_modules
+          # readinessProbe:
+            # httpGet:
+              # path: /health
+              # port: 5000
+            # initialDelaySeconds: 10
+            # periodSeconds: 5
+      # volumes:
+        # - name: backend-modules
+          # emptyDir: {}
+

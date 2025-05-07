@@ -12,9 +12,22 @@ spec:
       labels:
         app: mongo
     spec:
+      initContainers:
+        - name: fix-permissions
+          image: alpine
+          command:
+            ["sh", "-c", "chown -R 999:999 /data/db && chmod -R 755 /data/db"]
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+            - name: mongo-config
+              mountPath: /data/configdb
       containers:
         - name: mongo
           image: mongo:latest
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
           ports:
             - containerPort: 27017
           volumeMounts:
@@ -26,15 +39,14 @@ spec:
             exec:
               command:
                 ["mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 5
-            timeoutSeconds: 5
-            successThreshold: 1
-            failureThreshold: 5
       volumes:
         - name: mongo-data
           hostPath:
-            path: /mnt/c/Users/Sergio/Programas/MERN/aula
+            path: /volumes/aula/mongo/db
+            type: Directory
         - name: mongo-config
-          persistentVolumeClaim:
-            claimName: mongo-config-pvc
+          hostPath:
+            path: /volumes/aula/mongo/config
+            type: Directory
