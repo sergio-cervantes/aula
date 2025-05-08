@@ -3,7 +3,7 @@
 
 FROM node:alpine3.20
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json vite.config.js ./
 RUN npm install
 COPY . .
 ENV PORT=5173

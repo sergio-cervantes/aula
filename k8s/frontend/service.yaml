@@ -8,6 +8,6 @@ spec:
     app: frontend
   ports:
     - protocol: TCP
-      port: 31000
+      port: 80
       targetPort: 5173
       nodePort: 31000
