@@ -15,16 +15,3 @@ spec:
       containers:
         - name: frontend
           image: ghcr.io/sergio-cervantes/aula/frontend:0.1
-          ports:
-            - containerPort: 5173
-          volumeMounts:
-            - name: frontend-code
-              mountPath: /app
-            - name: frontend-modules
-              mountPath: /app/node_modules
-      volumes:
-        - name: frontend-code
-          hostPath:
-            path: /volumes/aula/frontend
-        - name: frontend-modules
-          emptyDir: {}

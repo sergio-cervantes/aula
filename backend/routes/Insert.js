@@ -9,7 +9,6 @@ app.use(express.json());
 // Conexión a MongoDB
 mongoose.connect("mongodb://localhost:27017/mern_example", {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
 });
 
 // Modelo de usuario

@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .npmrc
+*.swp
+*.bk
 
 # Editor directories and files
 .vscode/*
