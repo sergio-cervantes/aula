@@ -8,8 +8,7 @@ function Insert() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Para desarrollo: axios.post("http://localhost:8000/api/users", ...)
-      const response = await axios.post("http://backend/api/users", {
+      const response = await axios.post("http://backend:5000/api/users", {
         name,
       });
       console.log(`¡Nombre guardado en MongoDB: ${response.statusText}!`);
