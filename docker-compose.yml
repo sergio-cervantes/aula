@@ -2,7 +2,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Containerfile
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "5173:5173"
@@ -16,7 +16,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Containerfile
+      dockerfile: Dockerfile
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]

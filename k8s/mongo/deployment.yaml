@@ -1,3 +1,4 @@
+# mongo-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -12,41 +13,15 @@ spec:
       labels:
         app: mongo
     spec:
-      initContainers:
-        - name: fix-permissions
-          image: alpine
-          command:
-            ["sh", "-c", "chown -R 999:999 /data/db && chmod -R 755 /data/db"]
-          volumeMounts:
-            - name: mongo-data
-              mountPath: /data/db
-            - name: mongo-config
-              mountPath: /data/configdb
       containers:
         - name: mongo
-          image: mongo:latest
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
+          image: mongo
           ports:
             - containerPort: 27017
           volumeMounts:
-            - name: mongo-data
+            - name: mongo-storage
               mountPath: /data/db
-            - name: mongo-config
-              mountPath: /data/configdb
-          readinessProbe:
-            exec:
-              command:
-                ["mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
-            initialDelaySeconds: 10
-            periodSeconds: 5
       volumes:
-        - name: mongo-data
-          hostPath:
-            path: /volumes/aula/mongo/db
-            type: Directory
-        - name: mongo-config
-          hostPath:
-            path: /volumes/aula/mongo/config
-            type: Directory
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc

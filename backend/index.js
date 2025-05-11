@@ -4,11 +4,10 @@ const mongoose = require("mongoose");
 const User = require("./models/User");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://frontend", "http://localhost:5173"],
+    origin: ["http://172.17.24.71:31000"],
   })
 );
 app.use(express.json());
@@ -45,6 +44,7 @@ app.post("/api/users", async (req, res) => {
 });
 
 // Start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Escuchando desde el fondo en http://localhost:${PORT}`);
+  console.log(`Escuchando desde el fondo a http://localhost:${PORT}`);
 });
