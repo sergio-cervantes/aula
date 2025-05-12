@@ -7,14 +7,19 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["*"],
+    origin: "http://aula.local:31000",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+  console.log(`Solicitud recibida: ${req.method} ${req.path}`);
+  next();
+});
 
 app.use((err, req, res, next) => {
   console.error(`Error en la petición a ${req.path}:`, err.message);

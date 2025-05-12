@@ -8,9 +8,11 @@ function Insert() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://backend.local/api/users", {
-        name,
-      });
+      const response = await axios.post(
+        "http://aula.local/api/users",
+        { name },
+        { withCredentials: true }
+      );
       console.log(`¡Nombre guardado en MongoDB: ${response.statusText}!`);
       setName("");
     } catch (error) {

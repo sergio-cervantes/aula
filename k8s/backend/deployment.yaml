@@ -25,3 +25,5 @@ spec:
           hostPath:
             path: /home/sergio/aula/backend
             type: Directory
+        - name: backend-modules
+          emptyDir: {}

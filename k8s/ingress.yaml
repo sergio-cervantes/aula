@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: aula-ingress
 spec:
+  ingressClassName: traefik
   rules:
-    - host: backend.local
+    - host: aula.local
       http:
         paths:
           - path: /api
@@ -14,4 +15,10 @@ spec:
                 name: backend
                 port:
                   number: 5000
-
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 5173

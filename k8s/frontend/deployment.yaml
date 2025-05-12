@@ -25,3 +25,5 @@ spec:
           hostPath:
             path: /home/sergio/aula/frontend
             type: Directory
+        - name: frontend-modules
+          emptyDir: {}
