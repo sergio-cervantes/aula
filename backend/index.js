@@ -7,10 +7,19 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://172.17.24.71:31000"],
+    origin: ["*"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.json());
+
+app.use((err, req, res, next) => {
+  console.error(`Error en la petición a ${req.path}:`, err.message);
+  res.status(500).json({ error: "Error interno del servidor" });
+});
 
 mongoose
   .connect("mongodb://mongo:27017/aula", {
@@ -48,3 +57,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Escuchando desde el fondo a http://localhost:${PORT}`);
 });
+
+// END

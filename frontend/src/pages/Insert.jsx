@@ -8,7 +8,7 @@ function Insert() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://172.17.24.71:32000/api/users", {
+      const response = await axios.post("http://backend.local/api/users", {
         name,
       });
       console.log(`¡Nombre guardado en MongoDB: ${response.statusText}!`);
@@ -35,3 +35,5 @@ function Insert() {
 }
 
 export default Insert;
+
+// END
