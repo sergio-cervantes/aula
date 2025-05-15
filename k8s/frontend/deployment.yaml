@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: frontend:latest
+          image: registry.local/frontend:latest
           ports:
             - containerPort: 5173
           volumeMounts:
